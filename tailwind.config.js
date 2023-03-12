@@ -9,6 +9,18 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    screens: {
+      sm: "480px",
+      md: "768px",
+      lg: "976px",
+      xl: "1440px",
+    },
+    colors: {
+      blue: "#3D00F5",
+      LightPurple: "#855CFF",
+      black: "#0D0D0D",
+      white: "#F5F5F5",
+    },
     extend: {},
   },
   plugins: [],
