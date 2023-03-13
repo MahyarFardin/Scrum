@@ -10,14 +10,19 @@ module.exports = {
   ],
   theme: {
     screens: {
+      vs: "430px",
       sm: "480px",
+      ns: "675px",
       md: "768px",
       lg: "976px",
       xl: "1440px",
     },
     colors: {
+      lightGray: "#cccccc",
+      darkGray: "#1a1a1a",
+      gray: "#6b7280",
       blue: "#3D00F5",
-      LightPurple: "#855CFF",
+      lightPurple: "#855CFF",
       black: "#0D0D0D",
       white: "#F5F5F5",
     },
