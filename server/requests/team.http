@@ -1,0 +1,39 @@
+###create new 
+POST   http://127.0.0.1:3000/team/create
+Content-Type: application/json
+Authorization:  Bearer {{$dotenv token}}
+
+{
+    "name":"team1",
+    "description":"this one of our projects",
+    "username":"asdaad"
+}
+###update  
+PUT    http://127.0.0.1:3000/project/edit/63f88a86e530829468211552
+Content-Type: application/json
+Authorization:  Bearer {{$dotenv token}}
+
+{
+    "title":"this is",
+    "text":"a book",
+    "tags":["",""]
+}
+
+###
+GET  http://127.0.0.1:3000/team/list
+Content-Type: application/json 
+Authorization:  Bearer {{$dotenv token}}
+###
+GET  http://127.0.0.1:3000/team/63fe3e0a35222afda91c84ac
+Content-Type: application/json
+Authorization:  Bearer {{$dotenv token}}
+###
+GET  http://127.0.0.1:3000/team/invite/63ff0bac46bd48befa41a43e/erfan
+Content-Type: application/json
+Authorization:  Bearer {{$dotenv token}}
+###
+
+###
+DELETE   http://127.0.0.1:3000/team/remove/63fe3e0a35222afda91c84ac
+Content-Type: application/json
+Authorization:  Bearer {{$dotenv token}}

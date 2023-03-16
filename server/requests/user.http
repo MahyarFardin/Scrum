@@ -1,0 +1,21 @@
+###get user profile
+GET  http://127.0.0.1:3000/user/profile
+Authorization:  Bearer {{$dotenv token}}
+###get user profile
+GET  http://127.0.0.1:3000/user/requests
+Authorization:  Bearer {{$dotenv token}}
+###edit user profile
+Post  http://127.0.0.1:3000/user/profile
+Content-Type: application/json
+Authorization:  Bearer {{$dotenv token}}
+
+###
+GET  http://127.0.0.1:3000/user/requests/pending
+Content-Type: application/json
+Authorization:  Bearer {{$dotenv token}}
+
+{
+    "first_name":"asdasdas",
+    "last_name":"asdad",
+    "skills":["programming" , "nodejs" , "exprss.js" , "reqcct"]
+}

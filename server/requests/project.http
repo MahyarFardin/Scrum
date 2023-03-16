@@ -1,0 +1,28 @@
+###create new 
+POST   http://127.0.0.1:3000/project/create
+Content-Type: application/json
+Authorization:  Bearer {{$dotenv token}}
+
+{
+    "title":"project1",
+    "text":"this one of our projects"
+}
+###update  
+PUT    http://127.0.0.1:3000/project/edit/63f88a86e530829468211552
+Content-Type: application/json
+Authorization:  Bearer {{$dotenv token}}
+
+{
+    "title":"this is",
+    "text":"a book",
+    "tags":["",""]
+}
+
+###
+GET  http://127.0.0.1:3000/project/list
+Content-Type: application/json
+Authorization:  Bearer {{$dotenv token}}
+###
+GET  http://127.0.0.1:3000/project/63f88a86e530829468211552
+Content-Type: application/json
+Authorization:  Bearer {{$dotenv token}}
