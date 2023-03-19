@@ -3,22 +3,21 @@ import Image from "next/image";
 import Input from "@/components/input/Input";
 import GradiantButton from "@/components/gradiantbutton/GradiantButton";
 import GradiantButtonBorder from "@/components/gradiantbuttonborder/gradiantButtonBorder";
-import Password from "@/components/password/Password";
 import { FiMail } from "react-icons/fi";
 import { BiLockAlt } from "react-icons/bi";
 import { MdPersonOutline } from "react-icons/md";
 import { AiOutlinePhone } from "react-icons/ai";
-import { AiOutlineEye } from "react-icons/ai";
 
 // Font Bronova
 export default function Auth() {
   const [isSigningIn] = useState(false);
   return (
-    <div className="overflow-hidden w-screen h-screen bg-black text-white">
+    <div className="w-screen h-screen bg-black text-white">
+      {/*overflow-hidden*/}
       {/* this runs if user wants to sign in */}
       {isSigningIn && (
         <div className="w-full h-full flex flex-row">
-          <div className="w-1/2 h-full rounded-r-2xl bg-gradient-to-tr from-lightPurple to-blue">
+          <div className="w-1/2 h-full rounded-r-2xl bg-gradient-to-r from-lightPurple to-blue">
             <div className="w-auto h-auto text-center py-20">
               <h3 className="text-6xl font-medium">Scrum</h3>
               <h3 className="text-4xl font-semibold my-14">Welcome Back!</h3>
@@ -34,13 +33,13 @@ export default function Auth() {
           <div className="w-1/2 m-full">
             <div className="text-center text-white py-20 lg:px-14">
               <h3 className="text-6xl font-medium my-7">Sign In</h3>
-              <div className="w-auto h-auto my-12 ml-13 mx-6">
+              <div className="w-auto md:w-72 lg:w-80 h-auto my-12 ml-13 mx-6 md:mx-auto lg:mx-auto lg:text-lg space-y-3">
                 <Input text="E-mail">
                   <FiMail size={25} />
                 </Input>
-                <Password text="Password" icon="AiOutlineEye">
-                  <BiLockAlt size={30} />
-                </Password>
+                <Input type="password" text="Password">
+                  <BiLockAlt size={25} />
+                </Input>
               </div>
               <GradiantButton text="Sign in" />
               <h3 className="text-lg my-3 ">Forget Password?</h3>
@@ -55,8 +54,8 @@ export default function Auth() {
       {/* this runs if user wants to sign up */}
       {!isSigningIn && (
         <div className="w-full h-full flex flex-row">
-          <div className="w-1/2 h-full rounded-r-2xl bg-gradient-to-tr from-lightPurple to-blue">
-            <div className="w-auto h-auto text-center py-20">
+          <div className="w-1/2 h-full rounded-r-2xl bg-gradient-to-r from-lightPurple to-blue">
+            <div className="w-auto h-auto text-center pt-20">
               <h3 className="text-6xl font-medium">Scrum</h3>
               <h3 className="text-4xl font-semibold my-14">Hello, Friend!</h3>
               <Image
@@ -71,7 +70,7 @@ export default function Auth() {
           <div className="w-1/2 m-full">
             <div className="text-center text-white pt-20 lg:px-14">
               <h3 className="text-6xl font-medium my-7">Sign Up</h3>
-              <div className="w-auto h-auto my-8 ml-13 mx-6 space-y-5">
+              <div className="w-auto md:w-72 lg:w-80 h-auto my-8 ml-13 mx-6 md:mx-auto lg:mx-auto lg:text-lg space-y-3">
                 <Input text="Full Name">
                   <MdPersonOutline size={25} />
                 </Input>
@@ -81,13 +80,12 @@ export default function Auth() {
                 <Input text="Phone Number">
                   <AiOutlinePhone size={25} />
                 </Input>
-
-                <Password text="Password">
-                  <BiLockAlt size={25} className="mr-1" />
-                </Password>
+                <Input type="password" text="Password">
+                  <BiLockAlt size={25} />
+                </Input>
               </div>
               <GradiantButton text="Sign up" />
-              <div className="w-5/6 h-auto mx-auto flex flex-row justify-center items-center space-x-1">
+              <div className="w-5/6 h-auto mt-7 mx-auto flex flex-row justify-center items-center space-x-1">
                 <h4 className="my-8 mr-1">Already have an account?</h4>
                 <GradiantButtonBorder text="Sign up" />
               </div>
