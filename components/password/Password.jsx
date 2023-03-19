@@ -9,6 +9,7 @@ export default function Password(props) {
           className="form-input h-10 w-full border-[2px] border-b-white rounded-md bg-black px-2 placeholder-white"
           type="password"
           placeholder={props.text}
+          onChange={props.change}
         />
         <AiOutlineEye className="pointer-events-auto w-auto h-8 absolute top-1/2 transform -translate-y-1/2 right-4"/>
       </label>
