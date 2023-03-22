@@ -1,6 +1,6 @@
 export default function HamburgerMenu(props) {
   return (
-    <button class="ns:hidden space-y-2 mr-5 max-vs:ml-auto ns:ml-auto">
+    <button className="ns:hidden space-y-2 mr-5 max-vs:ml-auto ns:ml-auto">
       <div className="w-8 h-0.5 bg-white"></div>
       <div className="w-8 h-0.5 bg-white"></div>
       <div className="w-8 h-0.5 bg-white"></div>
