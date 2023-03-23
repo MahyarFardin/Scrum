@@ -7,7 +7,6 @@ import { BiLockAlt } from "react-icons/bi";
 import { MdPersonOutline } from "react-icons/md";
 import { AiOutlinePhone } from "react-icons/ai";
 
-// Font Bronova
 export default function Auth() {
   const [isSigningIn, setIsSigninIn] = useState(false);
   const [error, setError] = useState(false);
@@ -16,6 +15,7 @@ export default function Auth() {
     email: "",
     password: "",
     confirmpassword: "",
+    number: 0,
   });
 
   const handlechange = (event) => {
@@ -105,7 +105,7 @@ export default function Auth() {
           <div className="w-full m-full">
             <div className="text-center text-white pt-20 lg:px-14">
               <h3 className="text-6xl font-medium my-7">Sign Up</h3>
-              <div className="w-auto md:w-72 lg:w-80 h-auto my-8 ml-13 mx-6 md:mx-auto lg:mx-auto lg:text-lg space-y-3">
+              <div className="w-auto md:w-72 lg:w-80 h-auto my-10 mx-6 md:mx-auto lg:mx-auto lg:text-lg">
                 <Input text="Full Name" name="fullname" change={handlechange}>
                   <MdPersonOutline size={30} />
                 </Input>
@@ -113,6 +113,14 @@ export default function Auth() {
                   text="E-mail"
                   type="email"
                   name="email"
+                  change={handlechange}
+                >
+                  <FiMail size={30} />
+                </Input>
+                <Input
+                  text="Number"
+                  type="number"
+                  name="number"
                   change={handlechange}
                 >
                   <FiMail size={30} />
