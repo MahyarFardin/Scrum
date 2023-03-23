@@ -28,10 +28,12 @@ module.exports = class Appication {
     }
     configDataBase(DB_URL) {
         mongoose.set("strictQuery", false);
-        mongoose.connect(DB_URL, (err) => {
-            if (err) throw err;
-            return console.log("coonect to DB successfully");
-        });
+        mongoose
+            .connect(DB_URL)
+            .then(() => {
+                console.log("connected to DB");
+            })
+            .catch((err) => console.log(err));
     }
     errorHandler() {
         this.#app.use((req, res, next) => {
