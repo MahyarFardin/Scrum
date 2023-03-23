@@ -12,7 +12,7 @@ export default function Input(props) {
     setIsPassword((current) => !current);
   };
   return (
-    <div className="h-auto w-full my-8 flex flex-row justify-center items-center text-white relative">
+    <div className="h-auto w-full my-4 flex flex-row justify-center items-center text-white relative">
       {props.children}
       <input
         className="h-12 w-full px-4 bg-black border-[2px] border-b-white rounded-md ml-5 placeholder-white z-0"

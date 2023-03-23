@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 import Image from "next/image";
 import Input from "@/components/input/Input";
 import GradiantButton from "@/components/gradiantbutton/GradiantButton";
@@ -6,12 +7,14 @@ import { FiMail } from "react-icons/fi";
 import { BiLockAlt } from "react-icons/bi";
 import { MdPersonOutline } from "react-icons/md";
 import { AiOutlinePhone } from "react-icons/ai";
+import { useRouter } from "next/router";
 
 export default function Auth() {
+  const router = useRouter();
   const [isSigningIn, setIsSigninIn] = useState(false);
   const [error, setError] = useState(false);
   const [user, setUser] = useState({
-    fullname: "",
+    username: "",
     email: "",
     password: "",
     confirmpassword: "",
@@ -23,13 +26,28 @@ export default function Auth() {
     setUser({ ...user, [event.target.name]: event.target.value });
   };
 
-  const handleSignIn = (event) => {
+  const handleSignIn = async (event) => {
     event.preventDefault();
+    res = await axios.post("http://127.0.0.1:3000/auth/login", user);
+    if (res == 200) router.push("/");
   };
-  const handleSignUp = (event) => {
+  const handleSignUp = async (event) => {
     event.preventDefault();
     console.log("this is a test");
     if (user.password !== user.confirmpassword) setError((current) => !current);
+    else {
+      res = await axios.post("http://127.0.0.1:3000/auth/register", {
+        data: {
+          username: user.username,
+          password: user.password,
+        },
+        headers: {
+          Authorization: `Bearer {${process.env.token}}`,
+        },
+      });
+
+      if (res == 200) router.push("/");
+    }
   };
   return (
     <div className="w-full h-full bg-black text-white">
@@ -103,10 +121,10 @@ export default function Auth() {
             </div>
           </div>
           <div className="w-full m-full">
-            <div className="text-center text-white pt-20 lg:px-14">
+            <div className="text-center text-white pt-14 lg:px-14">
               <h3 className="text-6xl font-medium my-7">Sign Up</h3>
               <div className="w-auto md:w-72 lg:w-80 h-auto my-10 mx-6 md:mx-auto lg:mx-auto lg:text-lg">
-                <Input text="Full Name" name="fullname" change={handlechange}>
+                <Input text="Full Name" name="username" change={handlechange}>
                   <MdPersonOutline size={30} />
                 </Input>
                 <Input
@@ -142,7 +160,7 @@ export default function Auth() {
               </div>
               <GradiantButton text="Sign up" />
               <div className="w-5/6 h-auto mt-7 mx-auto flex flex-row justify-center items-center space-x-1">
-                <h4 className="my-8 mr-1">Already have an account?</h4>
+                <h4 className="my-1 mr-1">Already have an account?</h4>
                 <button
                   className="border-2 py-1 px-8 rounded-full"
                   onClick={() => setIsSigninIn((current) => !current)}
