@@ -2,5 +2,9 @@ progress {
   -webkit-appearance: none;
 }
 .progress::-webkit-progress-value {
-    background-color: #3D00F5;
+  background-color: #3d00f5;
+}
+.shadowm:hover {
+  box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset,
+    rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
 }

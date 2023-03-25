@@ -4,9 +4,9 @@ import Projects from "@/components/projects/Projects";
 
 export default function ProjectsPage() {
   return (
-    <div>
+    <div className="w-full h-full bg-black">
       <Navbar />
-      <div className="w-full h-screen flex flex-row pt-20 bg-black">
+      <div className="w-full h-full flex flex-row pt-20">
         <div className="lg:w-1/5 h-screen fixed hidden lg:flex bg-darkGray pl-3 space-y-3">
           <Tabs />
         </div>

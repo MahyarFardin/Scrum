@@ -2,6 +2,7 @@ import axios from "axios";
 import Link from "next/link";
 import ProjectCards from "../project cards/ProjectCards";
 export default function (props) {
+  console.log(props)
   return (
     <div className="w-full h-full">
       <h1 className="font-semibold uppercase">your projects</h1>
@@ -25,14 +26,15 @@ export default function (props) {
   );
 }
 
-// export async function getServerSideProps(context) {
-//   const data = await axios.get("http://127.0.0.1:3000/project/list", {
-//     headers: {
-//       Authorization: `Bearer {${process.env.token}}`,
-//     },
-//   });
+export async function getServerSideProps(context) {
+  const data = await axios.get("http://127.0.0.1:3001/project/list", {
+    headers: {
+      Authorization: `Bearer {${process.env.token}}`,
+    },
+  });
 
-//   return {
-//     props: { data },
-//   };
-// }
+  console.log(data);
+  return {
+    props: { data },
+  };
+}
