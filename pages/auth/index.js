@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 
 export default function Auth() {
   const router = useRouter();
-  const [isSigningIn, setIsSigninIn] = useState(false);
+  const [isSigningIn, setIsSigninIn] = useState(true);
   const [error, setError] = useState(false);
   const [user, setUser] = useState({
     username: "",
@@ -26,19 +26,26 @@ export default function Auth() {
     setUser({ ...user, [event.target.name]: event.target.value });
   };
 
-  const handleSignIn = async (event) => {
+  const handleSignUp = async (event) => {
     event.preventDefault();
-    res = await axios.post("http://127.0.0.1:3000/auth/login", user);
+    res = await axios.post("http://127.0.0.1:5000/auth/register", {
+      username:user.username,
+      email:user.email,
+      password:user.password,
+      confirm_password:user.confirmpassword,
+      mobile:user.number
+    });
     if (res == 200) router.push("/");
   };
-  const handleSignUp = async (event) => {
+
+  const handleSignIn = async (event) => {
     event.preventDefault();
     console.log("this is a test");
     if (user.password !== user.confirmpassword) setError((current) => !current);
     else {
-      res = await axios.post("http://127.0.0.1:3000/auth/register", {
+      res = await axios.post("http://127.0.0.1:5000/auth/login", {
         data: {
-          username: user.username,
+          username: user.email,
           password: user.password,
         },
         headers: {
@@ -70,7 +77,7 @@ export default function Auth() {
               />
             </div>
           </div>
-          <div className="w-full m-full">
+          <div className="w-full h-full">
             <div className="text-center text-white py-20 lg:px-14">
               <h3 className="text-6xl font-medium my-7">Sign In</h3>
               <div className="w-auto h-auto mt-24 mx-20">
@@ -158,7 +165,7 @@ export default function Auth() {
                   <h3 className="text-white">Password does not match</h3>
                 )}
               </div>
-              <GradiantButton text="Sign up" />
+              <GradiantButton text="Sign in" />
               <div className="w-5/6 h-auto mt-7 mx-auto flex flex-row justify-center items-center space-x-1">
                 <h4 className="my-1 mr-1">Already have an account?</h4>
                 <button

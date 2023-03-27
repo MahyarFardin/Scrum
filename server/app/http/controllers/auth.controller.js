@@ -2,6 +2,7 @@ const { validationResult } = require("express-validator");
 const { hashString, tokenGenerator } = require("../../modules/functions");
 const { UserModel } = require("../../models/users");
 const { compareSync } = require("bcrypt");
+const { checkLogin } = require("../middlewares/autoLogin");
 
 class AuthController {
     async register(req, res, next) {
@@ -23,6 +24,7 @@ class AuthController {
     }
     async login(req, res, next) {
         try {
+            console.log(req);
             const { username, password } = req.body;
             const user = await UserModel.findOne({ username });
             if (!user)
