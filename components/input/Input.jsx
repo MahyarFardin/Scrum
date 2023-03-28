@@ -6,7 +6,6 @@ export default function Input(props) {
   const [isPassword, setIsPassword] = useState(
     props.type == "password" ? true : false
   );
-  console.log(isPassword);
   const handleclick = (event) => {
     event.preventDefault();
     setIsPassword((current) => !current);

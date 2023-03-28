@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 
 export default function Auth() {
   const router = useRouter();
-  const [isSigningIn, setIsSigninIn] = useState(true);
+  const [isSigningIn, setIsSigninIn] = useState(false);
   const [error, setError] = useState(false);
   const [user, setUser] = useState({
     username: "",
@@ -29,43 +29,46 @@ export default function Auth() {
   const handleSignUp = async (event) => {
     event.preventDefault();
     res = await axios.post("http://127.0.0.1:5000/auth/register", {
-      username:user.username,
-      email:user.email,
-      password:user.password,
-      confirm_password:user.confirmpassword,
-      mobile:user.number
+      username: user.username,
+      email: user.email,
+      password: user.password,
+      confirm_password: user.confirmpassword,
+      mobile: user.number,
     });
     if (res == 200) router.push("/");
   };
 
   const handleSignIn = async (event) => {
     event.preventDefault();
-    console.log("this is a test");
+
+    console.log("fuck you");
     if (user.password !== user.confirmpassword) setError((current) => !current);
     else {
-      res = await axios.post("http://127.0.0.1:5000/auth/login", {
-        data: {
+      await fetch("http://127.0.0.1:5000/auth/login", {
+        method: POST,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: {
           username: user.email,
           password: user.password,
         },
-        headers: {
-          Authorization: `Bearer {${process.env.token}}`,
-        },
-      });
-
-      if (res == 200) router.push("/");
+      })
+        .then((res) => res.json())
+        .then(res => console.log(res))
+        .catch((err) => console.log(err));
     }
   };
   return (
-    <div className="w-full h-full bg-black text-white">
+    <div className="w-full h-full text-white bg-black overflow-y-hidden">
       {/* this runs if user wants to sign in */}
       {isSigningIn && (
         <form
           onSubmit={handleSignIn}
-          className="w-full h-full grid grid-cols-2"
+          className="w-full h-screen grid grid-cols-2"
         >
           <div className="w-full h-full rounded-r-2xl bg-gradient-to-tr from-lightPurple to-blue">
-            <div className="w-auto h-auto text-center py-20">
+            <div className="w-auto h-full text-center py-20">
               <h3 className="text-6xl font-medium">Scrum</h3>
               <h3 className="text-4xl font-semibold my-14">Welcome Back!</h3>
               <Image
@@ -77,8 +80,8 @@ export default function Auth() {
               />
             </div>
           </div>
-          <div className="w-full h-full">
-            <div className="text-center text-white py-20 lg:px-14">
+          <div className="w-full h-full bg-black">
+            <div className="w-full h-full text-center text-white py-20 lg:px-14">
               <h3 className="text-6xl font-medium my-7">Sign In</h3>
               <div className="w-auto h-auto mt-24 mx-20">
                 <Input
@@ -89,7 +92,12 @@ export default function Auth() {
                 >
                   <FiMail size={30} />
                 </Input>
-                <Input type="password" text="Password" change={handlechange}>
+                <Input
+                  name="password"
+                  type="password"
+                  text="Password"
+                  change={handlechange}
+                >
                   <BiLockAlt size={30} />
                 </Input>
               </div>
@@ -112,10 +120,10 @@ export default function Auth() {
       {!isSigningIn && (
         <form
           onSubmit={handleSignUp}
-          className="w-full h-full grid grid-cols-2"
+          className="w-full h-screen grid grid-cols-2"
         >
           <div className="w-full h-full rounded-r-2xl bg-gradient-to-tr from-lightPurple to-blue">
-            <div className="w-auto h-auto text-center py-20">
+            <div className="w-auto h-full text-center py-20">
               <h3 className="text-6xl font-medium">Scrum</h3>
               <h3 className="text-4xl font-semibold my-14">Hello, Friend!</h3>
               <Image
@@ -127,8 +135,8 @@ export default function Auth() {
               />
             </div>
           </div>
-          <div className="w-full m-full">
-            <div className="text-center text-white pt-14 lg:px-14">
+          <div className="w-full h-full ">
+            <div className="w-ull h-full text-center text-white pt-14 lg:px-14">
               <h3 className="text-6xl font-medium my-7">Sign Up</h3>
               <div className="w-auto md:w-72 lg:w-80 h-auto my-10 mx-6 md:mx-auto lg:mx-auto lg:text-lg">
                 <Input text="Full Name" name="username" change={handlechange}>
