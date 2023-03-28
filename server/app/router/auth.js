@@ -5,6 +5,7 @@ const {
     loginValidator,
 } = require("../http/validations/auth");
 const { expressValidationMapper } = require("../http/middlewares/checkErrors");
+const { checkLogin } = require("../http/middlewares/autoLogin");
 
 rourter.post(
     "/register",
@@ -17,6 +18,11 @@ rourter.post(
     loginValidator(),
     expressValidationMapper,
     AuthController.login
+);
+rourter.get(
+    "/logout",
+    checkLogin,
+    AuthController.logout
 );
 
 module.exports = {

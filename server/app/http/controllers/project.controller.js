@@ -97,7 +97,6 @@ class ProjectController {
                 if (["", " ", 0, null, undefined, NaN].includes(value))
                     delete data[key];
                 if (key == "tags" && data["tags"].constructor == Array) {
-                    console.log(data["tags"].constructor == Array);
                     data["tags"] = data["tags"].filter((val) => {
                         if (!["", " ", 0, null, undefined, NaN].includes(val))
                             return val;

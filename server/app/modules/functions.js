@@ -9,7 +9,6 @@ function hashString(str) {
 }
 
 function tokenGenerator(payload) {
-    console.log(process.env.SECRET_KEY);
     const token = jwt.sign(payload, process.env.SECRET_KEY, {
         expiresIn: "3days",
     });

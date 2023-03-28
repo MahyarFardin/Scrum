@@ -15,7 +15,6 @@ class AuthController {
                 password: hash_password,
                 mobile,
             });
-            console.log(user);
             await user.save();
             return res.json(user);
         } catch (error) {
@@ -24,7 +23,6 @@ class AuthController {
     }
     async login(req, res, next) {
         try {
-            console.log(req.headers);
             const { username, password } = req.body;
             const user = await UserModel.findOne({ username });
             if (!user)
@@ -40,6 +38,7 @@ class AuthController {
                 };
             const token = tokenGenerator({ username });
             user.token = token;
+            user.stageTime.loginTime = new Date().getTime();
             await user.save();
             return res.status(200).json({
                 status: 200,
@@ -48,11 +47,36 @@ class AuthController {
                 token,
             });
         } catch (error) {
-            console.log(error);
             next(error);
         }
     }
-    resetPassword() {}
+    async logout(req, res, next) {
+        try {
+            const { username } = req.user[0];
+            const logoutTime = new Date().getTime();
+            const logoutResult = await UserModel.updateOne(
+                { username },
+                {
+                    $set: {
+                        "stageTime.logoutTime": logoutTime,
+                    },
+                }
+            );
+
+            if (logoutResult.modifiedCount == 0)
+                throw {
+                    status: 401,
+                    message: "logout failed",
+                };
+            return res.status(200).json({
+                status: 200,
+                message: "logout success",
+            });
+        } catch (err) {
+            console.log(err);
+            next(err);
+        }
+    }
 }
 
 module.exports = {

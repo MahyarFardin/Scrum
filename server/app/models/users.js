@@ -7,6 +7,12 @@ const InviteRequest = new mongoose.mongoose.Schema({
     status: { type: String, status: "pending" },
 });
 
+const InStageTime = mongoose.Schema({
+    loginTime: { type: Number },
+    logoutTime: { type: Number },
+    time: { type: Number, default: 0 },
+});
+
 const UserSchema = new mongoose.Schema(
     {
         first_name: { type: String },
@@ -26,6 +32,7 @@ const UserSchema = new mongoose.Schema(
         teams: { type: [mongoose.Types.ObjectId], default: [] },
         token: { type: String, default: "" },
         inviteRequests: { type: [InviteRequest] },
+        stageTime: { type: InStageTime, default: {} },
     },
     { timestamps: true }
 );
