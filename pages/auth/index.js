@@ -8,6 +8,7 @@ import { BiLockAlt } from "react-icons/bi";
 import { MdPersonOutline } from "react-icons/md";
 import { AiOutlinePhone } from "react-icons/ai";
 import { useRouter } from "next/router";
+import Cookies from "js-cookie";
 
 export default function Auth() {
   const router = useRouter();
@@ -18,7 +19,7 @@ export default function Auth() {
     email: "",
     password: "",
     confirmpassword: "",
-    number: 0,
+    mobile: 0,
   });
 
   const handlechange = (event) => {
@@ -28,14 +29,38 @@ export default function Auth() {
 
   const handleSignUp = async (event) => {
     event.preventDefault();
-    res = await axios.post("http://127.0.0.1:5000/auth/register", {
-      username: user.username,
-      email: user.email,
-      password: user.password,
-      confirm_password: user.confirmpassword,
-      mobile: user.number,
-    });
-    if (res == 200) router.push("/");
+
+    if (user.password !== user.confirmpassword) setError((current) => !current);
+    else {
+      let body = {
+        username: user.username,
+        email: user.email,
+        password: user.password,
+        confirm_password: user.confirmpassword,
+        mobile: user.mobile,
+      };
+      const url = "http://127.0.0.1:5000/auth/register";
+
+      body = JSON.stringify(body);
+
+      console.log(body);
+      await axios
+        .post(url, body, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          if (res.data.status === 200) {
+            router.push("/");
+          }
+        })
+        .catch((err) => {
+          alert("Something went wrong please check your connection");
+          console.log(err);
+        });
+    }
   };
 
   const handleSignIn = async (event) => {
@@ -45,33 +70,22 @@ export default function Auth() {
       password: user.password,
     };
     body = JSON.stringify(body);
+    console.log(body);
     const url = "http://127.0.0.1:5000/auth/login";
-    if (user.password !== user.confirmpassword) setError((current) => !current);
-    else {
-      // await fetch(url, {
-      //     method: "POST",
-      //     headers: {
-      //         "Content-Type": "application/json",
-      //     },
-      //     body,
-      // })
-      //     .then((response) => response.json())
-      //     .then((data) => console.log(data))
-      //     .catch((error) => console.error(error));
-
-      await axios
-        .post(url, body, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
+    await axios
+      .post(url, body, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        if (response.data.status === 200) {
+          Cookies.set("token", response.data.token, { expires: 3 });
+        }
+      })
+      .catch((error) => {
+        alert("Some thing went wrong please check your connection");
+      });
   };
   return (
     <div className="w-full h-full text-white bg-black overflow-y-hidden">
@@ -153,7 +167,7 @@ export default function Auth() {
             <div className="w-ull h-full text-center text-white pt-14 lg:px-14">
               <h3 className="text-6xl font-medium my-7">Sign Up</h3>
               <div className="w-auto md:w-72 lg:w-80 h-auto my-10 mx-6 md:mx-auto lg:mx-auto lg:text-lg">
-                <Input text="Full Name" name="username" change={handlechange}>
+                <Input text="Username" name="username" change={handlechange}>
                   <MdPersonOutline size={30} />
                 </Input>
                 <Input
@@ -165,9 +179,9 @@ export default function Auth() {
                   <FiMail size={30} />
                 </Input>
                 <Input
-                  text="Number"
+                  text="mobile"
                   type="number"
-                  name="number"
+                  name="mobile"
                   change={handlechange}
                 >
                   <FiMail size={30} />

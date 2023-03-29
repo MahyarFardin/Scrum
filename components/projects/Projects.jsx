@@ -2,7 +2,7 @@ import axios from "axios";
 import Link from "next/link";
 import ProjectCards from "../project cards/ProjectCards";
 export default function Projects(props) {
-  console.log(props)
+
   return (
     <div className="w-full h-full">
       <h1 className="font-semibold uppercase">your projects</h1>
@@ -34,7 +34,6 @@ export async function getServerSideProps(context) {
     },
   });
 
-  console.log(data);
   return {
     props: { data },
   };
