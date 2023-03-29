@@ -1,4 +1,4 @@
-const cors = require("cors")
+const cors = require("cors");
 const mongoose = require("mongoose");
 const { AllRoutes } = require("./router/router");
 
@@ -13,7 +13,7 @@ module.exports = class Appication {
         this.errorHandler();
     }
     configApplication() {
-        this.#app.use(cors())
+        this.#app.use(cors());
         const path = require("path");
         this.#app.use(this.#express.json());
         this.#app.use(this.#express.urlencoded({ extended: false }));

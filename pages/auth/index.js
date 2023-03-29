@@ -40,7 +40,6 @@ export default function Auth() {
 
   const handleSignIn = async (event) => {
     event.preventDefault();
-
     let body = {
       username: user.email,
       password: user.password,
@@ -49,6 +48,17 @@ export default function Auth() {
     const url = "http://127.0.0.1:5000/auth/login";
     if (user.password !== user.confirmpassword) setError((current) => !current);
     else {
+      // await fetch(url, {
+      //     method: "POST",
+      //     headers: {
+      //         "Content-Type": "application/json",
+      //     },
+      //     body,
+      // })
+      //     .then((response) => response.json())
+      //     .then((data) => console.log(data))
+      //     .catch((error) => console.error(error));
+
       await axios
         .post(url, body, {
           headers: {
@@ -63,7 +73,6 @@ export default function Auth() {
         });
     }
   };
-  
   return (
     <div className="w-full h-full text-white bg-black overflow-y-hidden">
       {/* this runs if user wants to sign in */}
@@ -90,9 +99,9 @@ export default function Auth() {
               <h3 className="text-6xl font-medium my-7">Sign In</h3>
               <div className="w-auto h-auto mt-24 mx-20">
                 <Input
-                  text="Username"
-                  type="text"
-                  name="username"
+                  text="E-mail"
+                  type="email"
+                  name="email"
                   change={handlechange}
                 >
                   <FiMail size={30} />
@@ -109,7 +118,7 @@ export default function Auth() {
               <GradiantButton click={handleSignIn} text="Sign in" />
               <h3 className="text-lg my-3 ">Forget Password?</h3>
               <div className="w-5/6 mx-auto flex flex-row justify-center items-center space-x-1">
-                <h3 className="my-14">Don't have an account?</h3>
+                <h3 className="my-14">Do not have an account</h3>
                 <button
                   className="border-2 py-1 px-8 rounded-full"
                   onClick={() => setIsSigninIn((current) => !current)}
@@ -144,7 +153,7 @@ export default function Auth() {
             <div className="w-ull h-full text-center text-white pt-14 lg:px-14">
               <h3 className="text-6xl font-medium my-7">Sign Up</h3>
               <div className="w-auto md:w-72 lg:w-80 h-auto my-10 mx-6 md:mx-auto lg:mx-auto lg:text-lg">
-                <Input text="Username" name="username" change={handlechange}>
+                <Input text="Full Name" name="username" change={handlechange}>
                   <MdPersonOutline size={30} />
                 </Input>
                 <Input
