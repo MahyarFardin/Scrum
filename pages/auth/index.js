@@ -41,24 +41,29 @@ export default function Auth() {
   const handleSignIn = async (event) => {
     event.preventDefault();
 
-    console.log("fuck you");
+    let body = {
+      username: user.email,
+      password: user.password,
+    };
+    body = JSON.stringify(body);
+    const url = "http://127.0.0.1:5000/auth/login";
     if (user.password !== user.confirmpassword) setError((current) => !current);
     else {
-      await fetch("http://127.0.0.1:5000/auth/login", {
-        method: POST,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: {
-          username: user.email,
-          password: user.password,
-        },
-      })
-        .then((res) => res.json())
-        .then(res => console.log(res))
-        .catch((err) => console.log(err));
+      await axios
+        .post(url, body, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   };
+  
   return (
     <div className="w-full h-full text-white bg-black overflow-y-hidden">
       {/* this runs if user wants to sign in */}
@@ -85,9 +90,9 @@ export default function Auth() {
               <h3 className="text-6xl font-medium my-7">Sign In</h3>
               <div className="w-auto h-auto mt-24 mx-20">
                 <Input
-                  text="E-mail"
-                  type="email"
-                  name="email"
+                  text="Username"
+                  type="text"
+                  name="username"
                   change={handlechange}
                 >
                   <FiMail size={30} />
@@ -139,7 +144,7 @@ export default function Auth() {
             <div className="w-ull h-full text-center text-white pt-14 lg:px-14">
               <h3 className="text-6xl font-medium my-7">Sign Up</h3>
               <div className="w-auto md:w-72 lg:w-80 h-auto my-10 mx-6 md:mx-auto lg:mx-auto lg:text-lg">
-                <Input text="Full Name" name="username" change={handlechange}>
+                <Input text="Username" name="username" change={handlechange}>
                   <MdPersonOutline size={30} />
                 </Input>
                 <Input
