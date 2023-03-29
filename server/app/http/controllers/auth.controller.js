@@ -8,6 +8,11 @@ class AuthController {
     async register(req, res, next) {
         try {
             const { username, password, email, mobile } = req.body;
+            const IsUserExist = await UserModel.findOne({username , email , mobile})
+            if(IsUserExist) throw {
+                status:400,
+                message:"this user with this email and username has been already exist"
+            }
             const hash_password = hashString(password);
             const user = new UserModel({
                 username,
