@@ -53,7 +53,8 @@ export default function Auth() {
         .then((res) => {
           console.log(res);
           if (res.data.status === 200) {
-            router.push("/");
+            console.log("success");
+            // router.push("/");
           }
         })
         .catch((err) => {
