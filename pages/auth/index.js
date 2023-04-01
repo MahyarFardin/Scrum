@@ -9,6 +9,8 @@ import { MdPersonOutline } from "react-icons/md";
 import { AiOutlinePhone } from "react-icons/ai";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
+import { signIn } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 export default function Auth() {
   const router = useRouter();
@@ -43,19 +45,17 @@ export default function Auth() {
 
       body = JSON.stringify(body);
 
-      console.log(body);
-      await axios
-        .post(url, body, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
+      await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body,
+      })
+        .then((res) => res.json())
         .then((res) => {
-          console.log(res);
-          if (res.data.status === 200) {
-            console.log("success");
-            // router.push("/");
-          }
+          if (res.status === 200) setIsSigninIn((current) => !current);
+          else alert(res.message);
         })
         .catch((err) => {
           alert("Something went wrong please check your connection");
@@ -67,11 +67,10 @@ export default function Auth() {
   const handleSignIn = async (event) => {
     event.preventDefault();
     let body = {
-      username: user.email,
+      username: user.username,
       password: user.password,
     };
     body = JSON.stringify(body);
-    console.log(body);
     const url = "http://127.0.0.1:5000/auth/login";
     await axios
       .post(url, body, {
@@ -82,11 +81,18 @@ export default function Auth() {
       .then((response) => {
         if (response.data.status === 200) {
           Cookies.set("token", response.data.token, { expires: 3 });
-        }
+          router.push("/projects");
+          signIn("credentials", {
+            username: user.username,
+            password: user.password,
+          });
+          router.push("/projects");
+        } else alert(res.data.message);
       })
       .catch((error) => {
         alert("Some thing went wrong please check your connection");
       });
+    event.preventDefault();
   };
   return (
     <div className="w-full h-full text-white bg-black overflow-y-hidden">
@@ -114,9 +120,9 @@ export default function Auth() {
               <h3 className="text-6xl font-medium my-7">Sign In</h3>
               <div className="w-auto h-auto mt-24 mx-20">
                 <Input
-                  text="E-mail"
-                  type="email"
-                  name="email"
+                  text="Username"
+                  type="text"
+                  name="username"
                   change={handlechange}
                 >
                   <FiMail size={30} />

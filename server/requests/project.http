@@ -1,11 +1,13 @@
 ###create new 
-POST   http://127.0.0.1:3000/project/create
+POST   http://127.0.0.1:5000/project/create
 Content-Type: application/json
 Authorization:  Bearer {{$dotenv token}}
 
 {
     "title":"project1",
-    "text":"this one of our projects"
+    "text":"this one of our projects",
+    "image":"naser.png",
+    "tags":["fuck","you"]
 }
 ###update  
 PUT    http://127.0.0.1:3000/project/edit/63f88a86e530829468211552
@@ -19,7 +21,7 @@ Authorization:  Bearer {{$dotenv token}}
 }
 
 ###
-GET  http://127.0.0.1:3000/project/list
+GET  http://127.0.0.1:5000/project/list
 Content-Type: application/json
 Authorization:  Bearer {{$dotenv token}}
 ###

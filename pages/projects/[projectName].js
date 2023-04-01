@@ -13,44 +13,44 @@ export default function ProjectName(props) {
           <Tabs />
         </div>
         <div className="lg:ml-[20%] w-full h-full py-12 px-10 text-white text-3xl font-semibold">
-          <Project
-            // todo={props.data.todo}
-            // inProgress={props.data.inProgress}
-            // done={props.data.done}
-          />
+          {props && <Project />}
         </div>
       </div>
     </div>
   );
 }
 
-// export async function getStaticPaths() {
-//   const data = await axios.get("http://127.0.0.1:3001/project/list", {
-//     headers: {
-//       Authorization: `Bearer {${process.env.token}}`,
-//     },
-//   });
+export async function getStaticPaths() {
+  const data = await axios.get("http://127.0.0.1:3001/project/list", {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer {${process.env.token}}`,
+    },
+  });
 
-//   return {
-//     paths: [data],
-//     fallback: true, // can also be true or 'blocking'
-//   }
-// }
+  return {
+    paths: [data],
+    fallback: true, // can also be true or 'blocking'
+  };
+}
 
-// export async function getStaticProps(ctx) {
-//   const currentId = useRouter();
+export async function getStaticProps(ctx) {
+  const currentId = useRouter();
 
-//   const data = await axios.get(`http://127.0.0.1:3001/project/${currentId.query.projectName}`, {
-//     headers: {
-//       Authorization: `Bearer {${process.env.token}}`,
-//     },
-//   });
+  const data = await axios.get(
+    `http://127.0.0.1:3001/project/${currentId.query.projectName}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer {${process.env.token}}`,
+      },
+    }
+  );
 
-
-//   return {
-//     props: {
-//       data: data,
-//     },
-//     revalidate: 20,
-//   };
-// }
+  return {
+    props: {
+      data: data,
+    },
+    revalidate: 20,
+  };
+}

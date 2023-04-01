@@ -1,9 +1,9 @@
-import axios from "axios";
-import { useEffect } from "react";
+import React from "react";
+import useAuthentication from "@/components/Hooks/Auth";
 
-export default function Home(props) {
-  return (
-    <div>
-    </div>
-  );
+function Home() {
+  useAuthentication();
+
+  return <div>Redirecting ...</div>;
 }
+export default Home;

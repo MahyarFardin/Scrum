@@ -3,8 +3,8 @@ POST http://127.0.0.1:5000/auth/register
 Content-Type: application/json
 
 {
-    "username":"mahyar",
-    "email":"mahyar@gmail.com",
+    "username":"test",
+    "email":"test@gmail.com",
     "mobile":"09190000000",
     "password":"123456",
     "confirm_password":"123456"
@@ -15,7 +15,7 @@ Content-Type: application/json
 Authorization:  Bearer {{$dotenv token}}
 
 {
-    "username":"mahyar",
+    "username":"naser",
     "password":"123456"
 }
 ###logout request

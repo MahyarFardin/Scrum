@@ -28,6 +28,7 @@ class ProjectController {
                 message: "new project created",
             });
         } catch (err) {
+            console.log(err);
             next(err);
         }
     }
