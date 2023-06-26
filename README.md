@@ -18,3 +18,8 @@
 
 # Important
 ## This project is incomplete and any contribution is welcomed. 
+
+contributers
+Front-end: [Mahyar fardinfar](github.com/mahyarfardin), [Aslan](github.com/AslanGhagigat)
+
+back-end: [Nima mahini](github.com/nimamleo)
