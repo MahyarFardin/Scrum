@@ -9,8 +9,6 @@ import { MdPersonOutline } from "react-icons/md";
 import { AiOutlinePhone } from "react-icons/ai";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
-import { signIn } from "next-auth/react";
-import { useSession } from "next-auth/react";
 
 export default function Auth() {
   const router = useRouter();
@@ -42,9 +40,7 @@ export default function Auth() {
         mobile: user.mobile,
       };
       const url = "http://127.0.0.1:5000/auth/register";
-
       body = JSON.stringify(body);
-
       await fetch(url, {
         method: "POST",
         headers: {
@@ -72,27 +68,25 @@ export default function Auth() {
     };
     body = JSON.stringify(body);
     const url = "http://127.0.0.1:5000/auth/login";
-    await axios
-      .post(url, body, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+    await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body,
+    })
       .then((response) => {
+        console.log(response);
         if (response.data.status === 200) {
           Cookies.set("token", response.data.token, { expires: 3 });
           router.push("/projects");
-          signIn("credentials", {
-            username: user.username,
-            password: user.password,
-          });
           router.push("/projects");
         } else alert(res.data.message);
       })
       .catch((error) => {
         alert("Some thing went wrong please check your connection");
+        console.log(error);
       });
-    event.preventDefault();
   };
   return (
     <div className="w-full h-full text-white bg-black overflow-y-hidden">

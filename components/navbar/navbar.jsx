@@ -11,7 +11,7 @@ export default function Navbar(props) {
       </h1>
       <div className="hidden mr-2 ns:max-md:w-80 vs:flex justify-center items-center">
         <Search className="h-9 rounded-xl" text="Search here" />
-        <Link href={"#"}>
+        <Link href={"/auth"}>
           <VscAccount className="w-7 h-7 hidden md:flex text-gray mr-3 ml-2 md:max-lg:mr-auto" />
         </Link>
       </div>

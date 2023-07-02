@@ -1,7 +1,9 @@
 import GradiantButton from "@/components/gradiantbutton/GradiantButton";
 import Navbar from "@/components/navbar/navbar";
 import Tabs from "@/components/tabs/Tabs";
+import axios from "axios";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 function InputWithLable(props) {
   return (
@@ -15,12 +17,28 @@ function InputWithLable(props) {
     </div>
   );
 }
+
 export default function () {
   const [stage, setStage] = useState(0);
-  const handleclick = (event)=>{
-    event.preventDefault()
-    setStage(current => current+1)
-  }
+  const router = useRouter()
+  
+  const handleclick = (event) => {
+    event.preventDefault();
+    setStage((current) => current + 1);
+  };
+
+  const handleProjectCreation = (event) => {
+    event.preventDefault();
+    axios.post("http://127.0.0.1:5000/project/create", JSON.stringify(stage), {
+      headers: {
+        "Content-Type": "application / json",
+        "Authorization": `Bearer {${process.env.token}}`,
+      },
+    });
+
+    router.push("/projects")
+  };
+
   return (
     <div className="w-full h-full bg-black">
       <Navbar />
@@ -61,7 +79,7 @@ export default function () {
                   name="team"
                   type="text"
                 />
-                <GradiantButton text="Done"/>
+                <GradiantButton click={handleProjectCreation} text="Done" />
               </div>
             )}
           </div>
